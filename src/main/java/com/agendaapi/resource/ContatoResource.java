@@ -9,6 +9,8 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,7 +54,8 @@ public class ContatoResource {
     	@RequestParam(value = "size", defaultValue = "10") Integer tamanhoPagina    		
     	){
     	
-    	PageRequest pageRequest = PageRequest.of(pagina, tamanhoPagina);
+    	Sort sort = Sort.by(Direction.ASC, "nome");
+    	PageRequest pageRequest = PageRequest.of(pagina, tamanhoPagina, sort);
         return repository.findAll(pageRequest);
     }
 
